@@ -1,5 +1,6 @@
+rockspec_format = '3.0'
 package = 'op-sdk'
-version = '0.0.1-dev'
+version = 'dev-1'
 source = {
   url = 'git+ssh://git@github.com/mrjones2014/op-lua-sdk.git',
 }
@@ -15,4 +16,7 @@ build = {
     ['op-sdk.types'] = './src/op-sdk/types.lua',
     ['op-sdk.backend.default'] = './src/op-sdk/backend/default.lua',
   },
+}
+test = {
+  type = 'busted',
 }

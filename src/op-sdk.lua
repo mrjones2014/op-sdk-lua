@@ -113,16 +113,16 @@ end
 ---@param cli_path string the path to the CLI, defaults to `op`
 ---@param command_map table
 ---@param backend Backend
----@param parent_key string|nil
+---@param prev_args string[]|nil
 ---@return Cli the CLI bindings as a table
-local function build_api(cli_path, command_map, backend, parent_key)
+local function build_api(cli_path, command_map, backend, prev_args)
   cli_path = cli_path or 'op'
   local api = {}
   for key, cmd_obj in pairs(command_map) do
     if type(cmd_obj) == 'string' then
       local args = { key, cmd_obj }
-      if parent_key then
-        table.insert(args, 1, parent_key)
+      if prev_args and #prev_args > 0 then
+        args = join_lists(prev_args, args)
       end
 
       -- don't include list indices as args
@@ -131,13 +131,12 @@ local function build_api(cli_path, command_map, backend, parent_key)
       end, args)
 
       api[cmd_obj] = function(cmd_args)
-        local all_args = join_lists({ cli_path }, join_lists(args, cmd_args))
+        local all_args = join_lists({ cli_path }, join_lists(args, cmd_args or {}))
         return backend(all_args)
       end
-    else
-      if type(cmd_obj) == 'table' then
-        api[key] = build_api(cli_path, cmd_obj, backend, key)
-      end
+    elseif type(cmd_obj) == 'table' then
+      prev_args = prev_args or {}
+      api[key] = build_api(cli_path, cmd_obj, backend, join_lists(prev_args, { key }))
     end
   end
 

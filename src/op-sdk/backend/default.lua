@@ -48,22 +48,34 @@ local function split_to_lines(output)
   return lines or {}
 end
 
+local function try_parseint(str)
+  local ok, num = pcall(tonumber, str)
+  if ok then
+    return num
+  end
+
+  return nil
+end
+
 return function(args)
   local cmd_str = shellescape(args)
+  -- hack to get exit code on Lua 5.1
+  cmd_str = string.format('%s; echo $?', cmd_str)
   local proc = io.popen(cmd_str, 'r')
   if proc == nil then
     error('Failed to start external job.')
     return
   end
   local output = proc:read('*a')
-  local _, exit, status = proc:close()
-  status = exit == 'exit' and status or 127
+  local lines = split_to_lines(output)
+  local exit_code = try_parseint(lines[#lines]) or 127
+  table.remove(lines, #lines)
 
   -- non-zero, output in stderr position
-  if status ~= 0 then
-    return {}, split_to_lines(output), status
+  if exit_code ~= 0 then
+    return {}, lines, exit_code
   else
     -- zero exit code, output in stdout position
-    return split_to_lines(output), {}, status
+    return lines, {}, exit_code
   end
 end

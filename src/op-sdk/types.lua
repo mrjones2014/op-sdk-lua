@@ -1,5 +1,5 @@
 --- types This module just provides type annotations for the Lua language server
---- to provide better help in completions and signature help. Provides no functionality.
+--- to provide better help in completions and signature help. Provides no Backendality.
 
 -- CLI API types
 
@@ -7,35 +7,35 @@
 ---@alias Backend fun(args:string[]): any
 
 ---@class AccountCli
----@field add function
----@field get function
----@field list function
----@field forget function
+---@field add Backend
+---@field get Backend
+---@field list Backend
+---@field forget Backend
 local AccountCli
 
 ---@class ConnectGroupCli
----@field grant function
----@field revoke function
+---@field grant Backend
+---@field revoke Backend
 local ConnectGroupCli
 
 ---@class ConnectServerCli
----@field create function
----@field get function
----@field edit function
----@field delete function
----@field list function
+---@field create Backend
+---@field get Backend
+---@field edit Backend
+---@field delete Backend
+---@field list Backend
 local ConnectServerCli
 
 ---@class ConnectTokenCli
----@field create function
----@field edit function
----@field delete function
----@field list function
+---@field create Backend
+---@field edit Backend
+---@field delete Backend
+---@field list Backend
 local ConnectTokenCli
 
 ---@class ConnectVaultCli
----@field grant function
----@field revoke function
+---@field grant Backend
+---@field revoke Backend
 local ConnectVaultCli
 
 ---@class ConnectCli
@@ -46,69 +46,69 @@ local ConnectVaultCli
 local ConnectCli
 
 ---@class DocumentCli
----@field create function
----@field get function
----@field edit function
----@field delete function
----@field list function
+---@field create Backend
+---@field get Backend
+---@field edit Backend
+---@field delete Backend
+---@field list Backend
 local DocumentCli
 
 ---@class EventsCli
----@field create function
+---@field create Backend
 local EventsCli
 
 ---@class GroupUserCli
----@field grant function
----@field revoke function
----@field list function
+---@field grant Backend
+---@field revoke Backend
+---@field list Backend
 local GroupUserCli
 
 ---@class GroupCli
 ---@field user GroupUserCli
----@field create function
----@field get function
----@field edit function
----@field delete function
----@field list function
+---@field create Backend
+---@field get Backend
+---@field edit Backend
+---@field delete Backend
+---@field list Backend
 local GroupCli
 
 ---@class ItemCli
----@field create function
----@field get function
----@field edit function
----@field delete function
----@field list function
----@field share function
+---@field create Backend
+---@field get Backend
+---@field edit Backend
+---@field delete Backend
+---@field list Backend
+---@field share Backend
 local ItemCli
 
 ---@class UserCli
----@field create function
----@field get function
----@field edit function
----@field delete function
----@field list function
----@field provision function
----@field confirm function
----@field suspend function
----@field reactivate function
+---@field create Backend
+---@field get Backend
+---@field edit Backend
+---@field delete Backend
+---@field list Backend
+---@field provision Backend
+---@field confirm Backend
+---@field suspend Backend
+---@field reactivate Backend
 local UserCli
 
 ---@class VaultCli
----@field create function
----@field get function
----@field edit function
----@field delete function
----@field list function
+---@field create Backend
+---@field get Backend
+---@field edit Backend
+---@field delete Backend
+---@field list Backend
 local VaultCli
 
 ---@class Cli
----@field inject function
----@field read function
----@field run function
----@field signin function
----@field signout function
----@field update function
----@field whoami function
+---@field inject Backend
+---@field read Backend
+---@field run Backend
+---@field signin Backend
+---@field signout Backend
+---@field update Backend
+---@field whoami Backend
 ---@field account AccountCli
 ---@field connect ConnectCli
 ---@field document DocumentCli

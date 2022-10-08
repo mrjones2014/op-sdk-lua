@@ -2,8 +2,17 @@
 
 A Lua 5.1+ SDK for 1Password using the 1Password CLI.
 
+## Install
+
+```
+luarocks install op-sdk
+```
+
+## Usage
+
 The SDK requires you initialize it with a backend (or use the default backend `require('op-sdk.backend.default)`; see [Default Backend](#default-backend)). A backend is just a Lua function that takes the full `op` command as a list of
-arguments and handles executing the command and doing something with the results.
+arguments and handles executing the command and doing something with the results. The result is a table with functions nested in a structure mirroring the 1Password CLI command hierarchy,
+with each command mapping to a function that optionally takes a list of arguments and passes them onto the backend.
 
 You can also specify a custom path to the `op` binary if not on your `$PATH`.
 
@@ -24,7 +33,7 @@ local op = require('op-sdk').init(nil, '/path/to/op')
 local op = require('op-sdk').init(my_backend, '/path/to/op')
 ```
 
-## Default Backend
+### Default Backend
 
 The default backend is available at `require('op-sdk.backend.default')`. It is implemented using `io.popen`
 and creates the following API signature:
@@ -46,3 +55,7 @@ else
   -- which is a list of lines
 end
 ```
+
+## Types
+
+A type definition of the CLI table is available at [src/op-sdk/types.lua](./src/op-sdk/types.lua).

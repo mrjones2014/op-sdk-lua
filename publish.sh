@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-luarocks make
-luarocks pack op-sdk
+luarocks --lua-version=5.1 make
+luarocks --lua-version=5.1 pack op-sdk
 
-ROCKSPEC="$(find . -name='*.rockspec')"
+ROCKSPEC="$(find . -name '*.rockspec')"
 
-luarocks upload "$ROCKSPEC" --api-key="$LUAROCKS_API_KEY"
+luarocks --lua-version=5.1 upload "$ROCKSPEC" --api-key="$LUAROCKS_API_KEY"

@@ -1,9 +1,9 @@
 rockspec_format = "3.0"
 package = "op-sdk"
-version = "0.0.6-1"
+version = "0.0.7-1"
 source = {
    url = "git+ssh://git@github.com/mrjones2014/op-sdk-lua.git",
-   tag = "v0.0.6"
+   tag = "0.0.7"
 }
 description = {
    summary = "Lua bindings to the 1Password CLI, with a configurable process executor backend.",

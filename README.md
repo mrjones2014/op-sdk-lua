@@ -12,7 +12,8 @@ luarocks install op-sdk
 
 The SDK requires you initialize it with a backend (or use the default backend `require('op-sdk.backend.default)`; see [Default Backend](#default-backend)). A backend is just a Lua function that takes the full `op` command as a list of
 arguments and handles executing the command and doing something with the results. The result is a table with functions nested in a structure mirroring the 1Password CLI command hierarchy,
-with each command mapping to a function that optionally takes a list of arguments and passes them onto the backend. Any additional arguments are passed as additional arguments to the backend.
+with each command mapping to a function that optionally takes a list of arguments and passes them onto the backend. Any additional arguments are passed as additional arguments to the backend,
+and any additional properties on the arguments table are preserved.
 
 You can also specify a custom path to the `op` binary if not on your `$PATH`.
 
@@ -31,6 +32,21 @@ local op = require('op-sdk').init(nil, '/path/to/op')
 
 -- to use custom binary path with custom backend
 local op = require('op-sdk').init(my_backend, '/path/to/op')
+
+-- example of passing a custom argument, with an extra callback argument
+local my_backend = function(args, callback)
+  if args.async then
+    -- handle asynchronously
+    -- then call the callback function
+  else
+    -- handle synchronously
+  end
+end
+local op = require('op-sdk').init(my_backend)
+op.item({ async = true }, function(results)
+  -- do stuff with the results,
+  -- this callback is called asynchronously
+end)
 ```
 
 ### Default Backend

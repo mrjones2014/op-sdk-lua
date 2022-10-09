@@ -11,7 +11,7 @@ describe('op-sdk', function()
       assert.is.equal(args[1], 'op')
       assert.is.equal(args[2], 'signin')
     end
-    local op = require('op-sdk').init(test_backend(on_done))
+    local op = require('op-sdk').new({ backend = test_backend(on_done) })
     op.signin()
   end)
 
@@ -22,7 +22,7 @@ describe('op-sdk', function()
       assert.is.equal(args[2], 'account')
       assert.is.equal(args[3], 'list')
     end
-    local op = require('op-sdk').init(test_backend(on_done))
+    local op = require('op-sdk').new({ backend = test_backend(on_done) })
     op.account.list()
   end)
 
@@ -36,7 +36,7 @@ describe('op-sdk', function()
       assert.is.equal(args[5], '--format')
       assert.is.equal(args[6], 'json')
     end
-    local op = require('op-sdk').init(test_backend(on_done))
+    local op = require('op-sdk').new({ backend = test_backend(on_done) })
     op.connect.server.create({ '--format', 'json' })
   end)
 
@@ -51,7 +51,7 @@ describe('op-sdk', function()
       assert.is.equal(args[5], '--format')
       assert.is.equal(args[6], 'json')
     end
-    local op = require('op-sdk').init(test_backend(on_done))
+    local op = require('op-sdk').new({ backend = test_backend(on_done) })
     op.item.get({ test_uuid, '--format', 'json' })
   end)
 
@@ -62,7 +62,7 @@ describe('op-sdk', function()
       assert.is.equal(args[1], test_op_path)
       assert.is.equal(args[2], 'signin')
     end
-    local op = require('op-sdk').init(test_backend(on_done), test_op_path)
+    local op = require('op-sdk').new({ backend = test_backend(on_done), cli_path = test_op_path })
     op.signin()
   end)
 
@@ -73,7 +73,7 @@ describe('op-sdk', function()
       assert.is.equal(args[2], 'signin')
       assert.is.equal(args.some_property, true)
     end
-    local op = require('op-sdk').init(test_backend(on_done))
+    local op = require('op-sdk').new({ backend = test_backend(on_done) })
     op.signin({ some_property = true })
   end)
 end)

@@ -10,7 +10,7 @@ luarocks install op-sdk
 
 ## Usage
 
-The SDK requires you initialize it with a backend (or use the default backend `require('op-sdk.backend.default)`; see [Default Backend](#default-backend)). A backend is just a Lua function that takes the full `op` command as a list of
+The SDK requires you initialize it with a backend (or use the default backend `require('op-sdk.backend.default')`; see [Default Backend](#default-backend)). A backend is just a Lua function that takes the full `op` command as a list of
 arguments and handles executing the command and doing something with the results. The result is a table with functions nested in a structure mirroring the 1Password CLI command hierarchy,
 with each command mapping to a function that optionally takes a list of arguments and passes them onto the backend. Any additional arguments are passed as additional arguments to the backend,
 and any additional properties on the arguments table are preserved.

@@ -43,7 +43,7 @@ local my_backend = function(args, callback)
   end
 end
 local op = require('op-sdk').init(my_backend)
-op.item({ async = true }, function(results)
+op.item.get({ async = true }, function(results)
   -- do stuff with the results,
   -- this callback is called asynchronously
 end)

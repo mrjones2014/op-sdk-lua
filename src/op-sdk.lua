@@ -109,6 +109,23 @@ local function join_lists(list, list2)
   return result
 end
 
+local function join_lists_with_properties(list, list2)
+  local result = {}
+  insert_all(result, unpack(list))
+  insert_all(result, unpack(list2))
+  for key, value in pairs(list) do
+    if type(key) ~= 'number' then
+      result[key] = value
+    end
+  end
+  for key, value in pairs(list2) do
+    if type(key) ~= 'number' then
+      result[key] = value
+    end
+  end
+  return result
+end
+
 ---Build the CLI bindings as a table with the specified backend
 ---@param cli_path string the path to the CLI, defaults to `op`
 ---@param command_map table
@@ -131,7 +148,7 @@ local function build_api(cli_path, command_map, backend, prev_args)
       end, args)
 
       api[cmd_obj] = function(cmd_args, ...)
-        local all_args = join_lists({ cli_path }, join_lists(args, cmd_args or {}))
+        local all_args = join_lists_with_properties({ cli_path }, join_lists(args, cmd_args or {}))
         return backend(all_args, ...)
       end
     elseif type(cmd_obj) == 'table' then

@@ -13,7 +13,7 @@ OLD_ROCKSPEC="$(find . -name '*.rockspec')"
 luarocks --lua-version=5.1 make --pack-binary-rock
 luarocks --lua-version=5.1 pack op-sdk
 
-luarocks new_version --tag="$NEW_VERSION"
+luarocks new_version --tag="v$NEW_VERSION"
 
 rm "$OLD_ROCKSPEC"
 
@@ -24,5 +24,7 @@ git push
 git push --tags
 
 ROCKSPEC="$(find . -name '*.rockspec')"
+
+LUAROCKS_API_KEY="$(op read 'op://Personal/Luarocks API Key/credential')"
 
 luarocks --lua-version=5.1 upload "$ROCKSPEC" --api-key="$LUAROCKS_API_KEY"

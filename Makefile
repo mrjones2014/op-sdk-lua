@@ -11,7 +11,3 @@ test:
 .PHONY: test-verbose
 test-verbose:
 	luarocks test --lua-version=5.1 --verbose
-
-.PHONY: publish
-publish:
-	op run --env-file="./.env" -- ./publish.sh

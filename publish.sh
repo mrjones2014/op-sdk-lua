@@ -18,8 +18,8 @@ luarocks new_version --tag="$NEW_VERSION"
 rm "$OLD_ROCKSPEC"
 
 git add .
-git commit -m "prep $NEW_VERSION"
-git tag "$NEW_VERSION"
+git commit -m "prep v$NEW_VERSION"
+git tag "v$NEW_VERSION"
 git push
 git push --tags
 
